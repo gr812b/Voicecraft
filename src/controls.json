@@ -89,7 +89,7 @@
             "name": "right",
             "keys": [],
             "movement": "right",
-            "count": 3
+            "count": 1
         },
         {
             "name": "left",

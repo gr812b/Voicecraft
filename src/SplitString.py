@@ -50,6 +50,7 @@ def reloadJson():
         variable[2].append(controls["variable"][i]["movement"])
         variable[3].append(controls["variable"][i]["count"])
 
+
 def openStream(index=p.get_default_input_device_info()["index"]):
     global stream
     stream = p.open(
@@ -104,11 +105,11 @@ def move(command, values=None, movement=None, keys=None):
             pyautogui.move(0, (sensivity * values[0]), 0.15)
         elif movement == "down":
             pyautogui.move(0, (sensivity * values[0]), 0, 0.15)
-         elif movement == "coordiante":
-            pyautogui.move(values[0],values[1])
+        elif movement == "coordiante":
+            pyautogui.move(values[0], values[1])
         elif movement == "drag":
-            pyautogui.move(values[0],values[1])
-            pyautogui.drag(values[2],values[3])
+            pyautogui.move(values[0], values[1])
+            pyautogui.drag(values[2], values[3])
     elif command == "stop":
         stopMovement()
     else:
@@ -196,12 +197,10 @@ async def send_receive():
                                     if var_value != -1:
                                         var_values.append(var_value)
                                     print(
-                                        "Search ended final value is "
-                                        + str(var_value)
+                                        "Search ended final value is " + str(var_value)
                                     )
                                     print(
-                                        "Current variable values are "
-                                        + str(var_values)
+                                        "Current variable values are " + str(var_values)
                                     )
                                     print(
                                         "Current number of variables: "
@@ -210,13 +209,13 @@ async def send_receive():
                                         + str(var_count)
                                     )
                                     var_temp = ""
-                                    if(len(var_values) == var_count):
+                                    if len(var_values) == var_count:
                                         move(
                                             command=variable[0][var_index],
                                             values=var_values,
                                             movement=variable[2][var_index],
                                         )
-                                        
+
                                         var_values = []
                                         var_search = False
 
