@@ -9,18 +9,7 @@ FRAMES_PER_BUFFER = 3200
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 16000
-INPUT_INDEX = 1
 p = pyaudio.PyAudio()
-
-# starts recording
-stream = p.open(
-    format=FORMAT,
-    channels=CHANNELS,
-    rate=RATE,
-    input=True,
-    frames_per_buffer=FRAMES_PER_BUFFER,
-    input_device_index=INPUT_INDEX #Index of input device based on Input select 
-)
 
 
 # the AssemblyAI endpoint we're going to hit
@@ -29,8 +18,49 @@ URL = "wss://api.assemblyai.com/v2/realtime/ws?sample_rate=16000"
 counter = 0
 
 
+def openStream():
+    global stream
+    stream = p.open(
+        format=FORMAT,
+        channels=CHANNELS,
+        rate=RATE,
+        input=True,
+        frames_per_buffer=FRAMES_PER_BUFFER,
+    )
+
+
+def openStream(index):
+    global stream
+    stream = p.open(
+        format=FORMAT,
+        channels=CHANNELS,
+        rate=RATE,
+        input=True,
+        frames_per_buffer=FRAMES_PER_BUFFER,
+        input_device_index=index,  # Index of input device based on Input select
+    )
+
+
+def closeStream():
+    global stream
+    stream.close()
+
+
+def getAudioList():
+    global p
+    names = []
+    for i in range(0, p.get_host_api_info_by_index(0)["deviceCount"]):
+        if p.get_device_info_by_host_api_device_index(0, i)["maxInputChannels"] > 0:
+            names.append(p.get_device_info_by_host_api_device_index(0, i)["name"])
+    return names
+
+
+openStream()
+
+
 async def send_receive():
     global counter
+    global tempCount
     print(f"Connecting websocket to url ${URL}")
     async with websockets.connect(
         URL,
@@ -45,6 +75,7 @@ async def send_receive():
         print("Sending messages ...")
 
         async def send():
+            global tempCount
             while True:
                 try:
                     data = stream.read(FRAMES_PER_BUFFER)
@@ -56,7 +87,10 @@ async def send_receive():
                     assert e.code == 4008
                     break
                 except Exception as e:
-                    assert False, "Not a websocket 4008 error"
+                    if "Stream closed" in str(e):
+                        print("Stream closed, trying to reconnect")
+                    else:
+                        assert False, "Not a websocket 4008 error"
                 await asyncio.sleep(0.01)
 
             return True
