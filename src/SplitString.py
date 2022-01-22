@@ -19,7 +19,7 @@ stream = p.open(
     rate=RATE,
     input=True,
     frames_per_buffer=FRAMES_PER_BUFFER,
-    input_device_index=INPUT_INDEX #Index of input device based on Input select
+    input_device_index=INPUT_INDEX #Index of input device based on Input select 
 )
 
 
