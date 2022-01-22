@@ -43,6 +43,41 @@
             "movement": ""
         },
         {
+            "name": "ok",
+            "keys": [
+                "space","w"
+            ],
+            "movement": ""
+        },
+        {
+            "name": "sprint",
+            "keys": [
+                "ctrl"
+            ],
+            "movement": ""
+        },
+        {
+            "name": "crouch",
+            "keys": [
+                "shift"
+            ],
+            "movement": ""
+        },
+        {
+            "name": "l",
+            "keys": [
+                "left"
+            ],
+            "movement": ""
+        },
+        {
+            "name": "r",
+            "keys": [
+                "right"
+            ],
+            "movement": ""
+        },
+        {
             "name": "stop",
             "keys": [
             ],

@@ -26,6 +26,8 @@ variable_value = 0
 command_temp = ""
 movement_temp = ""
 currentKeys = []
+currentMouse = []
+sensivity = int((146 / 90))
 
 c = open("src\controls.json")
 controls = json.load(c)
@@ -79,27 +81,37 @@ def stopMovement():
     global currentKeys
     for i in currentKeys:
         pydirectinput.keyUp(i)
+    for i in currentMouse:
+        pydirectinput.mouseUp(button=i)
+    currentMouse.clear()
     currentKeys.clear()
 
 
 def move(command, value=None, movement=None, keys=None):
     global currentKeys
-    if value:
+    global currentMouse
+    print(command + " command")
+    print(str(keys) + " keys")
+    if value or value == 0:
         if movement == "right":
             print("MOVING MOUSE")
-            pyautogui.move(int((146 / 90) * value), 0, 0.15)
+            pyautogui.move((sensivity * value), 0, 0.15)
         elif movement == "left":
-            pyautogui.move(int(-(146 / 90) * value), 0, 0.15)
+            pyautogui.move((sensivity * value), 0, 0.15)
         elif movement == "up":
-            pyautogui.move(0, int((146 / 90) * value), 0.15)
+            pyautogui.move(0, (sensivity * value), 0.15)
         elif movement == "down":
-            pyautogui.move(0, int(-(146 / 90) * value), 0, 0.15)
+            pyautogui.move(0, (sensivity * value), 0, 0.15)
     elif command == "stop":
         stopMovement()
     else:
         for i in keys:
-            pydirectinput.keyDown(i)
-            currentKeys.append(i)
+            if i == "left" or i == "right":
+                pydirectinput.mouseDown(button=i)
+                currentMouse.append(i)
+            else:
+                pydirectinput.keyDown(i)
+                currentKeys.append(i)
 
 
 async def send_receive():
