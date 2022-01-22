@@ -74,6 +74,12 @@ async def send_receive():
                         counter = 0
                     else:
                         print(subSentance)
+                        # Split subsentance into words
+                        # for each word in subsentance
+                        # IF WORD IS COMMAND and variable is not true
+                        # CALL FUNCTION TO DO STUFF
+                        # Else wait for next word until number
+                        # CALL function with variabnle input
                         counter = len(sentance)
 
                 except websockets.exceptions.ConnectionClosedError as e:
