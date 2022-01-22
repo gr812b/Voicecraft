@@ -9,6 +9,7 @@ FRAMES_PER_BUFFER = 3200
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 16000
+INPUT_INDEX = 1
 p = pyaudio.PyAudio()
 
 # starts recording
@@ -18,6 +19,7 @@ stream = p.open(
     rate=RATE,
     input=True,
     frames_per_buffer=FRAMES_PER_BUFFER,
+    input_device_index=INPUT_INDEX #Index of input device based on Input select
 )
 
 
