@@ -104,10 +104,10 @@ def move(command, values=None, movement=None, keys=None):
         elif movement == "down":
             pyautogui.move(0, (sensivity * values[0]), 0, 0.15)
         elif movement == "coordiante":
-            pyautogui.move(values[0], values[1])
+            pyautogui.move(values[0], values[1], 0.15)
         elif movement == "drag":
-            pyautogui.move(values[0], values[1])
-            pyautogui.drag(values[2], values[3])
+            pyautogui.move(values[0], values[1], 0.15)
+            pyautogui.drag(values[2], values[3], 0.15)
     elif command == "stop":
         stopMovement()
     else:
@@ -199,6 +199,16 @@ async def send_receive():
                                             index = normal[0].index(word)
                                             move(normal[0][index], keys=normal[1][index])
                                             print(normal[1][index])
+                                            var_search = False
+                                            var_temp = ""
+                                            var_values = []
+                                            continue
+                                        elif word in variable[0]:
+                                            var_index = variable[0].index(word)
+                                            var_count = variable[3][var_index]
+                                            print(variable[2][var_index])
+                                            var_temp = ""
+                                            var_values = []
                                             continue
                                     print(
                                         "Search ended final value is " + str(var_value)
