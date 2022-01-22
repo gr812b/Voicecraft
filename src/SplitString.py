@@ -102,12 +102,12 @@ def move(command, values=None, movement=None, keys=None):
         elif movement == "up":
             pyautogui.move(0, (sensivity * values[0]), 0.15)
         elif movement == "down":
-            pyautogui.move(0, (sensivity * values[0]), 0, 0.15)
+            pyautogui.move(0, (sensivity * values[0]), 0.15)
         elif movement == "coordiante":
             pyautogui.move(values[0], values[1], 0.15)
         elif movement == "drag":
             pyautogui.move(values[0], values[1], 0.15)
-            pyautogui.drag(values[2], values[3], 0.15)
+            pyautogui.drag(values[2], values[3], duration=0.15)
     elif command == "stop":
         stopMovement()
     else:
@@ -197,7 +197,9 @@ async def send_receive():
                                     else:
                                         if word in normal[0]:
                                             index = normal[0].index(word)
-                                            move(normal[0][index], keys=normal[1][index])
+                                            move(
+                                                normal[0][index], keys=normal[1][index]
+                                            )
                                             print(normal[1][index])
                                             var_search = False
                                             var_temp = ""
