@@ -25,8 +25,6 @@ var_temp = ""
 var_count = 0
 var_index = 0
 var_values = []
-command_temp = ""
-movement_temp = ""
 currentKeys = []
 currentMouse = []
 sensivity = int((146 / 90))
@@ -196,6 +194,12 @@ async def send_receive():
                                     )
                                     if var_value != -1:
                                         var_values.append(var_value)
+                                    else:
+                                        if word in normal[0]:
+                                            index = normal[0].index(word)
+                                            move(normal[0][index], keys=normal[1][index])
+                                            print(normal[1][index])
+                                            continue
                                     print(
                                         "Search ended final value is " + str(var_value)
                                     )
