@@ -22,9 +22,9 @@ URL = "wss://api.assemblyai.com/v2/realtime/ws?sample_rate=16000"
 counter = 0
 var_search = False
 var_temp = ""
-var_values = []
 var_count = 0
 var_index = 0
+var_values = []
 command_temp = ""
 movement_temp = ""
 currentKeys = []
@@ -96,6 +96,11 @@ def move(command, values=None, movement=None, keys=None):
             pyautogui.move(0, int((146 / 90) * values[0]), 0.15)
         elif movement == "down":
             pyautogui.move(0, int(-(146 / 90) * values[0]), 0, 0.15)
+        elif movement == "coordiante":
+            pyautogui.move(values[0],values[1])
+        elif movement == "drag":
+            pyautogui.move(values[0],values[1])
+            pyautogui.drag(values[2],values[3])
     elif command == "stop":
         stopMovement()
     else:
@@ -143,11 +148,10 @@ async def send_receive():
             global counter
             global var_search
             global var_temp
+            global var_values
             global var_index
             global normal
             global variable
-            global command_temp
-            global movement_temp
             reloadJson()
             while True:
                 try:
@@ -201,8 +205,7 @@ async def send_receive():
                                             movement=variable[2][var_index],
                                         )
                                         
-                                        command_temp = ""
-                                        movement_temp = ""
+                                        var_values = []
                                         var_search = False
 
                             # IF WORD IS COMMAND and variable is not true

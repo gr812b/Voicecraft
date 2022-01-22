@@ -73,6 +73,18 @@
             "keys": [],
             "movement": "down",
             "count": 1
+        },
+        {
+            "name": "spot",
+            "keys": [],
+            "movement": "coordinate",
+            "count": 2
+        },
+        {
+            "name": "drag",
+            "keys": [],
+            "movement": "drag",
+            "count": 4
         }
     ]
 }
