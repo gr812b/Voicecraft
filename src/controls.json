@@ -53,23 +53,26 @@
         {
             "name": "right",
             "keys": [],
-            "movement": "right"
+            "movement": "right",
+            "count": 3
         },
         {
             "name": "left",
             "keys": [],
-         
-            "movement": "left"
+            "movement": "left",
+            "count": 1
         },
         {
             "name": "up",
             "keys": [],
-            "movement": "up"
+            "movement": "up",
+            "count": 1
         },
         {
             "name": "down",
             "keys": [],
-            "movement": "down"
+            "movement": "down",
+            "count": 1
         }
     ]
 }
