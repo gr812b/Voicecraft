@@ -1,9 +1,11 @@
+from math import fabs
 import websockets
 import asyncio
 import base64
 import json
 import pyaudio
 import string
+from number_parser import parse_number
 
 FRAMES_PER_BUFFER = 3200
 FORMAT = pyaudio.paInt16
@@ -16,6 +18,27 @@ p = pyaudio.PyAudio()
 URL = "wss://api.assemblyai.com/v2/realtime/ws?sample_rate=16000"
 
 counter = 0
+variable_search = False
+variable_temp = ""
+variable_value = 0
+
+c = open('src\controls.json')
+controls = json.load(c)
+normal = [[],[],[]]
+variable = [[],[],[]]
+
+def reloadJson():
+    global normal
+    global variable
+    for i in range(len(controls["normal"])):
+        normal[0].append(controls["normal"][i]["name"])
+        normal[1].append(controls["normal"][i]["keys"])
+        normal[2].append(controls["normal"][i]["movement"])
+    for i in range(len(controls["variable"])):
+        variable[0].append(controls["variable"][i]["name"])
+        variable[1].append(controls["variable"][i]["keys"])
+        variable[2].append(controls["variable"][i]["movement"])
+
 
 
 def openStream():
@@ -55,12 +78,10 @@ def getAudioList():
     return names
 
 
-openStream()
+openStream(0)
 
 
 async def send_receive():
-    global counter
-    global tempCount
     print(f"Connecting websocket to url ${URL}")
     async with websockets.connect(
         URL,
@@ -97,22 +118,65 @@ async def send_receive():
 
         async def receive():
             global counter
+            global variable_search
+            global variable_temp
+            global variable_value
+            global normal
+            global variable
+            reloadJson()
             while True:
                 try:
                     result_str = await _ws.recv()
 
                     sentance = json.loads(result_str)["text"]
-                    subSentance = sentance[counter:].strip()
+                    subSentence = sentance[counter:].strip()
                     messageType = json.loads(result_str)["message_type"]
                     if messageType == "FinalTranscript":
                         counter = 0
                     else:
-                        print(subSentance)
+                        print(subSentence)
                         # Split subsentance into words
+                        words = subSentence.split()
                         # for each word in subsentance
-                        # IF WORD IS COMMAND and variable is not true
-                        # CALL FUNCTION TO DO STUFF
-                        # Else wait for next word until number
+                        for word in words:
+                        # if variable search
+                            if variable_search:
+                                parse_value = parse_number(variable_temp + word)
+                                if parse_value:
+                                    if parse_value >= 360:
+                                        variable_value = 360
+                                        variable_search = False
+                                    else:
+                                        variable_temp += word
+                                else:
+                                    variable_value = parse_number(variable_temp) if parse_number(variable_temp) else 0
+                                    variable_search = False
+
+                            # IF WORD IS COMMAND and variable is not true
+                            else:
+                                if variable_value != 0:
+                                    print(variable_value)
+                                    variable_value = 0
+                                elif word in normal[0]:
+                                    index = normal[0].index(word)
+                                    print(normal[1][index])
+                                elif word in variable[0]:
+                                    index = variable[0].index(word)
+                                    #print(variable[2][index])
+                                    variable_search = True
+                                #if variable_value != 0:
+                                    #print(variable_value)
+
+                                    #print(word)
+                                #elif word in controls["variable"]["name"]:
+                                    #print(word)
+                                    #variable_search = True
+                                    # CALL FUNCTION TO DO STUFF
+                                
+                                
+                            # Else wait for next word until number
+                        
+                        # variable search = true
                         # CALL function with variabnle input
                         counter = len(sentance)
 

@@ -1,0 +1,51 @@
+{
+    "normal": [
+        {
+            "name": "left",
+            "keys": [
+                "a"
+            ],
+            "movement": ""
+        },
+        {
+            "name": "right",
+            "keys": [
+                "d"
+            ],
+            "movement": ""
+        },
+        {
+            "name": "forward",
+            "keys": [
+                "w"
+            ],
+            "movement": ""
+        },
+        {
+            "name": "down",
+            "keys": [
+                "s"
+            ],
+            "movement": ""
+        },
+        {
+            "name": "jump",
+            "keys": [
+                "space"
+            ],
+            "movement": ""
+        }
+    ],
+    "variable" : [
+        {
+            "name": "turn",
+            "keys": [],
+            "movement": "90"
+        },
+        {
+            "name": "counterclockwise",
+            "keys": [],
+            "movement": "-90"
+        }
+    ]
+}
