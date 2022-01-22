@@ -20,9 +20,11 @@ p = pyaudio.PyAudio()
 URL = "wss://api.assemblyai.com/v2/realtime/ws?sample_rate=16000"
 
 counter = 0
-variable_search = False
-variable_temp = ""
-variable_value = 0
+var_search = False
+var_temp = ""
+var_count = 0
+var_index = 0
+var_values = []
 command_temp = ""
 movement_temp = ""
 currentKeys = []
@@ -32,7 +34,7 @@ sensivity = int((146 / 90))
 c = open("src\controls.json")
 controls = json.load(c)
 normal = [[], [], []]
-variable = [[], [], []]
+variable = [[], [], [], []]
 
 
 def reloadJson():
@@ -46,7 +48,7 @@ def reloadJson():
         variable[0].append(controls["variable"][i]["name"])
         variable[1].append(controls["variable"][i]["keys"])
         variable[2].append(controls["variable"][i]["movement"])
-
+        variable[3].append(controls["variable"][i]["count"])
 
 def openStream(index=p.get_default_input_device_info()["index"]):
     global stream
@@ -87,21 +89,26 @@ def stopMovement():
     currentKeys.clear()
 
 
-def move(command, value=None, movement=None, keys=None):
+def move(command, values=None, movement=None, keys=None):
     global currentKeys
     global currentMouse
     print(command + " command")
     print(str(keys) + " keys")
-    if value or value == 0:
+    if values:
         if movement == "right":
             print("MOVING MOUSE")
-            pyautogui.move((sensivity * value), 0, 0.15)
+            pyautogui.move((sensivity * values[0]), 0, 0.15)
         elif movement == "left":
-            pyautogui.move((sensivity * value), 0, 0.15)
+            pyautogui.move((sensivity * values[0]), 0, 0.15)
         elif movement == "up":
-            pyautogui.move(0, (sensivity * value), 0.15)
+            pyautogui.move(0, (sensivity * values[0]), 0.15)
         elif movement == "down":
-            pyautogui.move(0, (sensivity * value), 0, 0.15)
+            pyautogui.move(0, (sensivity * values[0]), 0, 0.15)
+         elif movement == "coordiante":
+            pyautogui.move(values[0],values[1])
+        elif movement == "drag":
+            pyautogui.move(values[0],values[1])
+            pyautogui.drag(values[2],values[3])
     elif command == "stop":
         stopMovement()
     else:
@@ -151,20 +158,19 @@ async def send_receive():
 
         async def receive():
             global counter
-            global variable_search
-            global variable_temp
-            global variable_value
+            global var_search
+            global var_temp
+            global var_values
+            global var_index
             global normal
             global variable
-            global command_temp
-            global movement_temp
             reloadJson()
             while True:
                 try:
                     result_str = await _ws.recv()
 
-                    sentance = json.loads(result_str)["text"]
-                    subSentence = sentance[counter:].strip()
+                    sentence = json.loads(result_str)["text"]
+                    subSentence = sentence[counter:].strip()
                     messageType = json.loads(result_str)["message_type"]
                     if messageType == "FinalTranscript":
                         counter = 0
@@ -175,57 +181,57 @@ async def send_receive():
                         # for each word in subsentance
                         for word in words:
                             # if variable search
-                            if variable_search:
-                                print("parsing :" + variable_temp + " " + word)
-                                parse_value = parse_number(variable_temp + " " + word)
+                            if var_search:
+                                print("parsing :" + var_temp + " " + word)
+                                parse_value = parse_number(var_temp + " " + word)
                                 if parse_value:
-                                    if parse_value >= 360:
-                                        variable_value = 360
-                                        variable_search = False
-                                    else:
-                                        print("Adding " + word + " to " + variable_temp)
-                                        variable_temp += " " + word
+                                    print("Adding " + word + " to " + var_temp)
+                                    var_temp += " " + word
                                 else:
-                                    variable_value = (
-                                        parse_number(variable_temp)
-                                        if parse_number(variable_temp)
-                                        else 0
+                                    var_value = (
+                                        parse_number(var_temp)
+                                        if parse_number(var_temp)
+                                        else -1
                                     )
+                                    if var_value != -1:
+                                        var_values.append(var_value)
                                     print(
                                         "Search ended final value is "
-                                        + str(variable_value)
+                                        + str(var_value)
                                     )
                                     print(
-                                        "Calling move("
-                                        + command_temp
-                                        + ","
-                                        + str(variable_value)
-                                        + ")"
+                                        "Current variable values are "
+                                        + str(var_values)
                                     )
-                                    move(
-                                        command_temp,
-                                        value=variable_value,
-                                        movement=movement_temp,
+                                    print(
+                                        "Current number of variables: "
+                                        + str(len(var_values))
+                                        + "\nLooking for: "
+                                        + str(var_count)
                                     )
-                                    variable_temp = ""
-                                    command_temp = ""
-                                    movement_temp = ""
-                                    variable_search = False
+                                    var_temp = ""
+                                    if(len(var_values) == var_count):
+                                        move(
+                                            command=variable[0][var_index],
+                                            values=var_values,
+                                            movement=variable[2][var_index],
+                                        )
+                                        
+                                        var_values = []
+                                        var_search = False
 
                             # IF WORD IS COMMAND and variable is not true
                             else:
                                 if word in normal[0]:
                                     index = normal[0].index(word)
                                     move(normal[0][index], keys=normal[1][index])
-                                    # make function call saying move(normal[1][index])
                                     print(normal[1][index])
                                 elif word in variable[0]:
-                                    index = variable[0].index(word)
-                                    print(variable[2][index])
-                                    movement_temp = variable[2][index]
-                                    variable_search = True
-                                    command_temp = word
-                        counter = len(sentance)
+                                    var_index = variable[0].index(word)
+                                    var_count = variable[3][var_index]
+                                    print(variable[2][var_index])
+                                    var_search = True
+                        counter = len(sentence)
 
                 except websockets.exceptions.ConnectionClosedError as e:
                     print(e)
