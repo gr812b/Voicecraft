@@ -1,28 +1,28 @@
 {
     "normal": [
         {
-            "name": "left",
+            "name": "west",
             "keys": [
                 "a"
             ],
             "movement": ""
         },
         {
-            "name": "right",
+            "name": "east",
             "keys": [
                 "d"
             ],
             "movement": ""
         },
         {
-            "name": "forward",
+            "name": "north",
             "keys": [
                 "w"
             ],
             "movement": ""
         },
         {
-            "name": "down",
+            "name": "south",
             "keys": [
                 "s"
             ],
@@ -34,18 +34,42 @@
                 "space"
             ],
             "movement": ""
+        },
+        {
+            "name": "okay",
+            "keys": [
+                "space","w"
+            ],
+            "movement": ""
+        },
+        {
+            "name": "stop",
+            "keys": [
+            ],
+            "movement": ""
         }
     ],
     "variable" : [
         {
-            "name": "turn",
+            "name": "right",
             "keys": [],
-            "movement": "90"
+            "movement": "right"
         },
         {
-            "name": "counterclockwise",
+            "name": "left",
             "keys": [],
-            "movement": "-90"
+         
+            "movement": "left"
+        },
+        {
+            "name": "up",
+            "keys": [],
+            "movement": "up"
+        },
+        {
+            "name": "down",
+            "keys": [],
+            "movement": "down"
         }
     ]
 }
