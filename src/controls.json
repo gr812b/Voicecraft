@@ -78,6 +78,13 @@
             "movement": ""
         },
         {
+            "name": "item",
+            "keys": [
+                "e"
+            ],
+            "movement": ""
+        },
+        {
             "name": "stop",
             "keys": [
             ],
@@ -110,7 +117,7 @@
             "count": 1
         },
         {
-            "name": "spot",
+            "name": "move",
             "keys": [],
             "movement": "coordinate",
             "count": 2

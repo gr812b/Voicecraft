@@ -1,4 +1,5 @@
 from math import fabs
+from turtle import pensize
 import websockets
 import asyncio
 import base64
@@ -13,6 +14,9 @@ FRAMES_PER_BUFFER = 3200
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 16000
+WIDTH,HEIGHT = pyautogui.size()
+print(WIDTH)
+print(HEIGHT)
 p = pyaudio.PyAudio()
 
 
@@ -103,11 +107,12 @@ def move(command, values=None, movement=None, keys=None):
             pyautogui.move(0, (sensivity * values[0]), 0.15)
         elif movement == "down":
             pyautogui.move(0, (sensivity * values[0]), 0.15)
-        elif movement == "coordiante":
-            pyautogui.move(values[0], values[1], 0.15)
+        elif movement == "coordinate":
+            pyautogui.moveTo(values[0], values[1], 1)
         elif movement == "drag":
-            pyautogui.move(values[0], values[1], 0.15)
-            pyautogui.drag(values[2], values[3], duration=0.15)
+            pyautogui.moveTo(values[0], values[1], 1)
+            pyautogui.dragTo(values[2], values[3], 1)
+            pyautogui.click(button='left')
     elif command == "stop":
         stopMovement()
     else:
