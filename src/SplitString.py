@@ -34,7 +34,7 @@ currentKeys = []
 currentMouse = []
 sensivity = int((146 / 90))
 
-c = open("controls.json")
+c = open("assets/controls.json")
 controls = json.load(c)
 normal = [[], [], []]
 variable = [[], [], [], []]
