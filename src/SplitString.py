@@ -369,9 +369,9 @@ def move(command, values=None, movement=None, keys=None):
         elif movement == "left":
             pyautogui.move(-(sensivity * values[0]), 0, 0.15)
         elif movement == "up":
-            pyautogui.move(0, (sensivity * values[0]), 0.15)
-        elif movement == "down":
             pyautogui.move(0, -(sensivity * values[0]), 0.15)
+        elif movement == "down":
+            pyautogui.move(0, (sensivity * values[0]), 0.15)
         elif movement == "coordinate":
             pyautogui.moveTo(values[0], values[1], 1)
         elif movement == "drag":
