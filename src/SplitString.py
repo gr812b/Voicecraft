@@ -277,13 +277,13 @@ def reloadJson():
     global normal
     global variable
     for i in range(len(controls["normal"])):
-        normal[0].append(controls["normal"][i]["name"])
+        normal[0].append(controls["normal"][i]["name"][0])
         normal[1].append(controls["normal"][i]["keys"])
-        normal[2].append(controls["normal"][i]["movement"])
+        normal[2].append(controls["normal"][i]["movement"][0])
     for i in range(len(controls["variable"])):
-        variable[0].append(controls["variable"][i]["name"])
+        variable[0].append(controls["variable"][i]["name"][0])
         variable[1].append(controls["variable"][i]["keys"])
-        variable[2].append(controls["variable"][i]["movement"])
+        variable[2].append(controls["variable"][i]["movement"][0])
         variable[3].append(controls["variable"][i]["count"])
 
 
@@ -354,6 +354,8 @@ def move(command, values=None, movement=None, keys=None):
             if i == "left" or i == "right":
                 pydirectinput.mouseDown(button=i)
                 currentMouse.append(i)
+            elif parse_number(i):
+                pydirectinput.press(i)
             else:
                 pydirectinput.keyDown(i)
                 currentKeys.append(i)
@@ -497,7 +499,7 @@ async def send_receive():
         send_result, receive_result = await asyncio.gather(send(), receive())
 
 
-async def windowMaker():
+def windowMaker():
     global window
     global controls
     global controlNames
@@ -535,10 +537,5 @@ async def windowMaker():
             window.Element("table").Update(values=data[1:])
 
 
-async def wait_list():
-    await asyncio.gather(send_receive(), windowMaker())
-
-
-loop = asyncio.get_event_loop()
-loop.run_until_complete(wait_list())
-loop.close()
+windowMaker()
+asyncio.run(send_receive())
