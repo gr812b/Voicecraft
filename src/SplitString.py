@@ -53,7 +53,7 @@ audioDevices = getAudioList()
 
 
 def load_controls():
-    f = open("controls.json", "r")
+    f = open("assets/controls.json", "r")
     controls = json.load(f)
     f.close()
     return controls
@@ -81,7 +81,7 @@ startstop = {"text": "Start", "colour": "green"}
 def addToJson(name, keys, movement, group):
     controls = load_controls()
     controls[group].append({"name": name, "keys": keys, "movement": movement})
-    f = open("controls.json", "w")
+    f = open("assets/controls.json", "w")
     json.dump(controls, f)
     f.close()
 
@@ -92,7 +92,7 @@ def removeFromJson(name, group):
     for i, item in enumerate(controlNames):
         if item == name:
             controls[group].pop(i)
-    f = open("controls.json", "w")
+    f = open("assets/controls.json", "w")
     json.dump(controls, f)
     f.close()
 
