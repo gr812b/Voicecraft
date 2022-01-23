@@ -1,1 +1,35 @@
-{"normal": [{"name": ["west"], "keys": ["a"], "movement": [""]}, {"name": ["east"], "keys": ["d"], "movement": [""]}, {"name": ["north"], "keys": ["w"], "movement": [""]}, {"name": ["south"], "keys": ["s"], "movement": [""]}, {"name": ["jump"], "keys": ["space"], "movement": [""]}, {"name": ["okay"], "keys": ["space", "w"], "movement": [""]}, {"name": ["ok"], "keys": ["space", "w"], "movement": [""]}, {"name": ["sprint"], "keys": ["ctrl"], "movement": [""]}, {"name": ["crouch"], "keys": ["shift"], "movement": [""]}, {"name": ["l"], "keys": ["left"], "movement": [""]}, {"name": ["r"], "keys": ["right"], "movement": [""]}, {"name": ["item"], "keys": ["e"], "movement": [""]}, {"name": ["stop"], "keys": [], "movement": [""]}, {"name": ["one"], "keys": ["1"], "movement": [""]}, {"name": ["two"], "keys": ["2"], "movement": [""]}, {"name": ["three"], "keys": ["3"], "movement": [""]}, {"name": ["four"], "keys": ["4"], "movement": [""]}, {"name": ["five"], "keys": ["5"], "movement": [""]}, {"name": ["six"], "keys": ["6"], "movement": [""]}, {"name": ["seven"], "keys": ["7"], "movement": [""]}, {"name": ["adsa"], "keys": ["1"], "movement": [""]}], "variable": [{"name": ["right"], "keys": [], "movement": ["right"], "count": 1}, {"name": ["left"], "keys": [], "movement": ["left"], "count": 1}, {"name": ["up"], "keys": [], "movement": ["up"], "count": 1}, {"name": ["down"], "keys": [], "movement": ["down"], "count": 1}, {"name": ["move"], "keys": [], "movement": ["coordinate"], "count": 2}, {"name": ["drag"], "keys": [], "movement": ["drag"], "count": 4}]}
+{
+  "normal": [
+    { "name": ["west"], "keys": ["a"], "movement": [""] },
+    { "name": ["east"], "keys": ["d"], "movement": [""] },
+    { "name": ["north"], "keys": ["w"], "movement": [""] },
+    { "name": ["south"], "keys": ["s"], "movement": [""] },
+    { "name": ["jump"], "keys": ["space"], "movement": [""] },
+    { "name": ["okay"], "keys": ["space", "w"], "movement": [""] },
+    { "name": ["ok"], "keys": ["space", "w"], "movement": [""] },
+    { "name": ["sprint"], "keys": ["ctrl"], "movement": [""] },
+    { "name": ["crouch"], "keys": ["shift"], "movement": [""] },
+    { "name": ["l"], "keys": ["left"], "movement": [""] },
+    { "name": ["r"], "keys": ["right"], "movement": [""] },
+    { "name": ["item"], "keys": ["e"], "movement": [""] },
+    { "name": ["stop"], "keys": [], "movement": [""] },
+    { "name": ["one"], "keys": ["1"], "movement": [""] },
+    { "name": ["two"], "keys": ["2"], "movement": [""] },
+    { "name": ["three"], "keys": ["3"], "movement": [""] },
+    { "name": ["four"], "keys": ["4"], "movement": [""] },
+    { "name": ["five"], "keys": ["5"], "movement": [""] },
+    { "name": ["six"], "keys": ["6"], "movement": [""] },
+    { "name": ["seven"], "keys": ["7"], "movement": [""] },
+    { "name": ["eight"], "keys": ["8"], "movement": [""] },
+    { "name": ["nine"], "keys": ["9"], "movement": [""] },
+    { "name": ["escape"], "keys": ["esc"], "movement": [""] }
+  ],
+  "variable": [
+    { "name": ["right"], "keys": [], "movement": ["right"], "count": 1 },
+    { "name": ["left"], "keys": [], "movement": ["left"], "count": 1 },
+    { "name": ["up"], "keys": [], "movement": ["up"], "count": 1 },
+    { "name": ["down"], "keys": [], "movement": ["down"], "count": 1 },
+    { "name": ["move"], "keys": [], "movement": ["coordinate"], "count": 2 },
+    { "name": ["drag"], "keys": [], "movement": ["drag"], "count": 4 }
+  ]
+}
