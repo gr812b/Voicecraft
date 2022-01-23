@@ -169,25 +169,45 @@ def open_window(oldWindow):
         event, values = window.read()
         if event == gui.WIN_CLOSED:
             break
-        if event in ('submit'):
-            #TODO: Filter out wrong values
-            
-            #make sure all values are unique
+        if event in ("submit"):
+            # TODO: Filter out wrong values
+
+            # make sure all values are unique
             controls = load_controls()
             controlNames, controlKeys, controlMovement = load_controls_more(controls)
             print(controlNames)
+            value = True
+            print(pyautogui.KEYBOARD_KEYS)
+            print(values[1].split(","))
+            for i in values[1].split(","):
+                print(i)
+                if not i in pyautogui.KEYBOARD_KEYS:
+                    value = False
             if [values[0]] in controlNames:
                 gui.PopupError("Phrase was not unique")
-            elif set(values[1].split(',')).issubset(pyautogui.KEYBOARD_KEYS):
+            elif not value:
                 gui.PopupError("Key is not a valid key")
-            elif values[2] not in ["up", "down", "left", "right", "coordinate", "drag", ""]:
+            elif values[2] not in [
+                "up",
+                "down",
+                "left",
+                "right",
+                "coordinate",
+                "drag",
+                "",
+            ]:
                 gui.PopupError("Movement is not a valid movement")
             elif values[0] == "":
                 gui.PopupError("Phrase is empty")
             else:
-                addToJson(values[0].lower().split(","), values[1].split(","), values[2].split(","), 'normal')
-                data.append([values[0], values[1], values[2]])            
-            oldWindow.Element('table').Update(values=data[1:])
+                addToJson(
+                    values[0].lower().split(","),
+                    values[1].split(","),
+                    values[2].split(","),
+                    "normal",
+                )
+                data.append([values[0], values[1], values[2]])
+            oldWindow.Element("table").Update(values=data[1:])
             break
 
     window.close()
