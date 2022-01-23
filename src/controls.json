@@ -1,0 +1,132 @@
+{
+    "normal": [
+        {
+            "name": "west",
+            "keys": [
+                "a"
+            ],
+            "movement": ""
+        },
+        {
+            "name": "east",
+            "keys": [
+                "d"
+            ],
+            "movement": ""
+        },
+        {
+            "name": "north",
+            "keys": [
+                "w"
+            ],
+            "movement": ""
+        },
+        {
+            "name": "south",
+            "keys": [
+                "s"
+            ],
+            "movement": ""
+        },
+        {
+            "name": "jump",
+            "keys": [
+                "space"
+            ],
+            "movement": ""
+        },
+        {
+            "name": "okay",
+            "keys": [
+                "space","w"
+            ],
+            "movement": ""
+        },
+        {
+            "name": "ok",
+            "keys": [
+                "space","w"
+            ],
+            "movement": ""
+        },
+        {
+            "name": "sprint",
+            "keys": [
+                "ctrl"
+            ],
+            "movement": ""
+        },
+        {
+            "name": "crouch",
+            "keys": [
+                "shift"
+            ],
+            "movement": ""
+        },
+        {
+            "name": "l",
+            "keys": [
+                "left"
+            ],
+            "movement": ""
+        },
+        {
+            "name": "r",
+            "keys": [
+                "right"
+            ],
+            "movement": ""
+        },
+        {
+            "name": "item",
+            "keys": [
+                "e"
+            ],
+            "movement": ""
+        },
+        {
+            "name": "stop",
+            "keys": [
+            ],
+            "movement": ""
+        }
+    ],
+    "variable" : [
+        {
+            "name": "right",
+            "keys": [],
+            "movement": "right",
+            "count": 1
+        },
+        {
+            "name": "left",
+            "keys": [],
+            "movement": "left",
+            "count": 1
+        },
+        {
+            "name": "up",
+            "keys": [],
+            "movement": "up",
+            "count": 1
+        },
+        {
+            "name": "down",
+            "keys": [],
+            "movement": "down",
+            "count": 1
+        },
+        {
+            "name": "move",
+            "keys": [],
+            "movement": "coordinate",
+            "count": 2
+        },
+        {
+            "name": "drag",
+            "keys": [],
+            "movement": "drag",
+            "count": 4
+        }
+    ]
+}
