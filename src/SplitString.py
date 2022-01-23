@@ -25,6 +25,8 @@ p = pyaudio.PyAudio()
 URL = "wss://api.assemblyai.com/v2/realtime/ws?sample_rate=16000"
 
 counter = 0
+pyautogui.KEYBOARD_KEYS.append("left")
+pyautogui.KEYBOARD_KEYS.append("right")
 var_search = False
 var_temp = ""
 var_count = 0
